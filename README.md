@@ -4,19 +4,56 @@ Google Antigravity **Plugin + MCP Server** for **TypeSafe Jev (System One)** run
 
 ---
 
-## Quick Setup (Antigravity IDE / CLI)
+## Quick Setup (Antigravity Desktop App / IDE / CLI)
 
 1. Get your OpenRouter API key at **https://openrouter.ai/settings/keys** (no separate TypeSafe account needed).
-2. Install this plugin directly from GitHub or locally:
-   ```bash
-   agy plugin install https://github.com/kayroalexandre/jev-jove
-   # or from local clone:
-   agy plugin install .
-   # or without agy CLI:
-   node scripts/install-local.mjs
-   ```
-3. Enable the plugin in Antigravity (`Customizations > Installed > TypeSafe Jev on OpenRouter` or `agy plugin enable jev-openrouter`) and paste your **`OPENROUTER_API_KEY`** when prompted.
-   > `dist/mcp-server.mjs` is pre-bundled with all dependencies, so end users only need Node.js >= 20 (`npm install` is NOT required after plugin install).
+2. Choose any installation method below (pre-bundled `dist/mcp-server.mjs` requires **only Node.js >= 20** — no `npm install` needed):
+
+### Option A — Antigravity CLI (`agy`) (Windows / macOS / Linux)
+```bash
+agy plugin install https://github.com/kayroalexandre/jev-jove
+agy plugin enable jev-openrouter
+```
+Or open **Antigravity Desktop > Customizations > Installed > TypeSafe Jev on OpenRouter**, toggle it on, and paste your **`OPENROUTER_API_KEY`** when prompted.
+
+### Option B — Windows Desktop (1-Command PowerShell Installer)
+Run in Windows PowerShell (`Win + X` > Terminal / PowerShell):
+```powershell
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/kayroalexandre/jev-jove/main/scripts/install-windows.ps1 | iex"
+```
+This installs the full plugin cleanly into `%USERPROFILE%\.gemini\config\plugins\jev-openrouter` and optionally prompts (hidden input) to configure `%USERPROFILE%\.gemini\config\mcp_config.json` with your `OPENROUTER_API_KEY`. Restart/reload Antigravity Desktop afterwards.
+
+### Option C — Manual / Local Clone Setup (`mcp_config.json`)
+```bash
+node scripts/install-local.mjs --write-global-mcp
+```
+Or open your global MCP config directly in the UI:
+- **Antigravity Desktop App:** `Customizations > Installed > MCP Servers > Copy Config File Path`
+- **Antigravity IDE:** Agent panel `…` > `MCP Servers` > `Manage MCP Servers` > `View raw config`
+
+On Windows, add `"jev-openrouter_jev"` to `%USERPROFILE%\.gemini\config\mcp_config.json` (replace `YOUR_USER` and `sk-or-v1-...`):
+```json
+{
+  "mcpServers": {
+    "jev-openrouter_jev": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\YOUR_USER\\.gemini\\config\\plugins\\jev-openrouter\\dist\\mcp-server.mjs"
+      ],
+      "env": {
+        "OPENROUTER_API_KEY": "sk-or-v1-...",
+        "PLUGIN_ROOT": "C:\\Users\\YOUR_USER\\.gemini\\config\\plugins\\jev-openrouter",
+        "PLUGIN_DATA": "C:\\Users\\YOUR_USER\\.gemini\\config\\plugin-data\\jev-openrouter"
+      },
+      "timeoutSeconds": 180,
+      "tools": {
+        "jev_decide": { "eager": true },
+        "jev_run_recipe": { "eager": true }
+      }
+    }
+  }
+}
+```
 
 ---
 

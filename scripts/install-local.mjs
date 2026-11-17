@@ -66,11 +66,17 @@ if (process.argv.includes("--write-global-mcp")) {
   const globalMcpPath = join(targetHome, ".gemini", "config", "mcp_config.json");
   let existing = { mcpServers: {} };
   if (existsSync(globalMcpPath)) {
-    try {
-      existing = JSON.parse(readFileSync(globalMcpPath, "utf8"));
-      if (!existing.mcpServers) existing.mcpServers = {};
-    } catch {
-      existing = { mcpServers: {} };
+    const rawGlobal = readFileSync(globalMcpPath, "utf8").trim();
+    if (rawGlobal.length > 0) {
+      try {
+        existing = JSON.parse(rawGlobal);
+        if (!existing.mcpServers || typeof existing.mcpServers !== "object") {
+          existing.mcpServers = {};
+        }
+      } catch (err) {
+        console.error(`Existing ${globalMcpPath} contains invalid JSON; refusing to overwrite: ${err.message}`);
+        process.exit(1);
+      }
     }
   }
   existing.mcpServers["jev-openrouter_jev"] = {
@@ -82,6 +88,14 @@ if (process.argv.includes("--write-global-mcp")) {
       PLUGIN_DATA: dataDir,
     },
     timeoutSeconds: 180,
+    tools: {
+      jev_decide: {
+        eager: true,
+      },
+      jev_run_recipe: {
+        eager: true,
+      },
+    },
   };
   writeFileSync(globalMcpPath, JSON.stringify(existing, null, 2) + "\n", "utf8");
 }

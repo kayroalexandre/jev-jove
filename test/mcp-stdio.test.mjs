@@ -266,6 +266,9 @@ test("Local installer and strict validator scripts execute cleanly in isolated t
       readFileSync(join(fakeHome, ".gemini", "config", "mcp_config.json"), "utf8"),
     );
     assert.ok(globalMcp.mcpServers["jev-openrouter_jev"]);
+    assert.equal(globalMcp.mcpServers["jev-openrouter_jev"].tools.jev_decide.eager, true);
+    assert.equal(globalMcp.mcpServers["jev-openrouter_jev"].tools.jev_run_recipe.eager, true);
+    assert.ok(existsSync(join(fakeHome, ".gemini", "config", "plugins", "jev-openrouter", "scripts", "install-windows.ps1")));
   } finally {
     rmSync(fakeHome, { recursive: true, force: true });
   }
