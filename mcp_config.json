@@ -1,0 +1,30 @@
+{
+  "mcpServers": {
+    "jev": {
+      "command": "node",
+      "args": [
+        "${PLUGIN_ROOT}/dist/mcp-server.mjs"
+      ],
+      "env": {
+        "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+      },
+      "variables": [
+        {
+          "name": "OPENROUTER_API_KEY",
+          "title": "OpenRouter API Key",
+          "description": "OpenRouter API key (sk-or-v1-...) used to execute TypeSafe Jev Decisions, batch evaluation, auto-calibration, and Jev Router requests.",
+          "link": "https://openrouter.ai/settings/keys"
+        }
+      ],
+      "timeoutSeconds": 180,
+      "tools": {
+        "jev_decide": {
+          "eager": true
+        },
+        "jev_run_recipe": {
+          "eager": true
+        }
+      }
+    }
+  }
+}

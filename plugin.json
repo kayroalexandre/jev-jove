@@ -1,0 +1,30 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "jev-openrouter",
+  "displayName": "TypeSafe Jev on OpenRouter",
+  "version": "1.0.0",
+  "description": "Typed Noul, Choice, Score, and Box decisions, confidence routing, recipes, and auto-calibration for TypeSafe Jev models on OpenRouter.",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "Audit this repo for places where fragile LLM prompt-and-parse steps should become calibrated Jev primitives",
+    "Run a TypeSafe Jev recipe (tool-call gate, RAG cascade, or support triage) via OpenRouter",
+    "Auto-calibrate Noul or Choice thresholds and temperature scaling on labeled examples"
+  ],
+  "author": {
+    "name": "Kayro Alexandre",
+    "url": "https://github.com/kayroalexandre"
+  },
+  "homepage": "https://github.com/kayroalexandre/jev-jove#readme",
+  "repository": "https://github.com/kayroalexandre/jev-jove",
+  "license": "MIT",
+  "keywords": [
+    "openrouter",
+    "typesafe",
+    "jev",
+    "system-one",
+    "decisions",
+    "calibration",
+    "guardrails",
+    "classification"
+  ]
+}

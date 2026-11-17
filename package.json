@@ -1,0 +1,35 @@
+{
+  "name": "jev-openrouter",
+  "version": "1.0.0",
+  "description": "Google Antigravity plugin and MCP server for TypeSafe Jev (System One) decisions on OpenRouter with official recipes and automatic calibration.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kayroalexandre/jev-jove.git"
+  },
+  "homepage": "https://github.com/kayroalexandre/jev-jove#readme",
+  "main": "./dist/mcp-server.mjs",
+  "bin": {
+    "jev-openrouter-mcp": "./dist/mcp-server.mjs"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "node scripts/build.mjs",
+    "validate": "node scripts/validate-plugin.mjs --strict",
+    "test": "npm run build && npm run typecheck && npx tsc --outDir tmp/tsc --noEmit false --declaration false && node --test test/*.test.mjs",
+    "mcp": "node dist/mcp-server.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.8.3"
+  }
+}
